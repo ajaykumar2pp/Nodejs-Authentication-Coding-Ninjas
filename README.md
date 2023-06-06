@@ -49,19 +49,22 @@ You may also see any lint errors in the console.
 ## 💻 Screens
 
 
-### Sign up
-![signup](https://user-images.githubusercontent.com/102378038/199895773-c19de43c-9fc3-4446-ae36-e93c095330d1.png)
-
-### Sign In
+### Register User
+![Screenshot (298)](https://github.com/ajaykumar2pp/Nodejs-Authentication-Coding-Ninjas/assets/102378038/6dfe1736-e1c0-470b-b41a-5d46b087ce4e)
 
 
-![signin](https://user-images.githubusercontent.com/102378038/199895895-d1fca464-3734-4a54-ab08-d8bbbbd9af65.png)
+### Login User
+
+![Screenshot (299)](https://github.com/ajaykumar2pp/Nodejs-Authentication-Coding-Ninjas/assets/102378038/26b4b14f-5ac6-4c49-b9ae-88636971addf)
+
 
 ### Reset Password 
 
-![reset_password](https://user-images.githubusercontent.com/102378038/199895937-d2677488-4be3-4f53-bfbb-63f6b201caa1.png)
+![Screenshot (300)](https://github.com/ajaykumar2pp/Nodejs-Authentication-Coding-Ninjas/assets/102378038/6fde7922-2518-47dc-97d3-494c6247fd42)
+
+### Logout User
 
 
-
+![Screenshot (301)](https://github.com/ajaykumar2pp/Nodejs-Authentication-Coding-Ninjas/assets/102378038/124c7d27-eee8-4701-a02d-df1c1e5e7a14)
 
 
