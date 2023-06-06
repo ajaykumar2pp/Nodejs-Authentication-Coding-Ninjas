@@ -49,14 +49,11 @@ You may also see any lint errors in the console.
 ## 💻 Screens
 
 
-### Register User
-<<<<<<< HEAD
-![signup](https://user-images.githubusercontent.com/102378038/199895773-c19de43c-9fc3-4446-ae36-e93c095330d1.png)
 
-### Login User
-=======
+### Register User
+
 ![Screenshot (298)](https://github.com/ajaykumar2pp/Nodejs-Authentication-Coding-Ninjas/assets/102378038/6dfe1736-e1c0-470b-b41a-5d46b087ce4e)
->>>>>>> a552243a2680aa58553b4dd4f32f830855918d12
+
 
 
 ### Login User
