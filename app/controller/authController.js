@@ -1,5 +1,7 @@
 const User = require('../models/user')
 const passport = require('passport')
+const bcrypt = require('bcrypt')
+
 function authController() {
     return {
         // ************************************  SIGN IN SETUP  *********************************//
@@ -8,40 +10,48 @@ function authController() {
         },
 
         postSignin(req, resp, next) {
-            const { username, password } = req.body
+            const { email, password } = req.body
+            console.log(req.body)
             // Validate request 
-            if (!username || !password) {
+            if (!email || !password) {
                 req.flash('error', 'All fields are required')
+                req.flash('email', email)
                 return resp.redirect('/signin')
 
             }
             passport.authenticate('local', (err, user, info) => {
                 if (err) {
-                    req.flash('error', info.message)
-                    return next(err)
-                }
-                if (!user) {
-                    req.flash('error', info.message)
+                    req.flash('error', 'Something went wrong. Please try again.');
                     return resp.redirect('/signin')
                 }
+                if (!user) {
+                    req.flash('error', info.message || 'Invalid login credentials');
+                    return resp.redirect('/signin')
+                }
+
+                 // Login user and redirect to dashboard
                 req.logIn(user, (err) => {
                     if (err) {
-                        req.flash('error', info.message)
-                        return next(err)
+                        req.flash('error', 'Login failed. Please try again.')
+                        return resp.redirect('/signin');
                     }
 
                     return resp.redirect('/home');
                 })
             })(req, resp, next)
         },
+
         home(req, resp) {
             resp.render('auth/home')
         },
+
+
 // ******************************************   SIGNUP SETUP  ********************************//
         signup(req, resp) {
             resp.render('auth/signup')
         },
-        postSignup(req, resp) {
+
+         async postSignup(req, resp) {
             const { username, email, password } = req.body
             console.log(req.body);
             if (!username || !email || !password) {
@@ -59,17 +69,38 @@ function authController() {
                     return resp.redirect('/')
                 }
             })
-            User.register({
-                username: req.body.username,
-                email: req.body.email
-            }, req.body.password, function (err) {
-                if (err) {
-                    req.flash('error', 'something went to wrong')
-                    return resp.redirect('/')
-                } else {
-                    return resp.redirect('/signin')
+            try {
+                // Check if email exists
+                const emailExists = await User.exists({ email: email });
+                if (emailExists) {
+                    req.flash('error', 'Email already taken');
+                    req.flash('username', username);
+                    req.flash('email', email);
+                    return resp.redirect('/');
                 }
-            });
+        
+                // Hash password 
+                const hashedPassword = await bcrypt.hash(password, 10)
+        
+                // Create a user 
+                const user = new User({
+                    username,
+                    email: email.toLowerCase(),
+                    password: hashedPassword
+                })
+        
+                // Save the user
+                await user.save();
+        
+                // Redirect to login Page
+                // req.flash('success', 'Registration successful! ');
+                return resp.redirect('/signin');
+        
+            } catch (err) {
+                console.error(err);
+                req.flash('error', 'Something went wrong, please try again.');
+                return resp.redirect('/');
+            }
         },
 
         // *****************************************   RESET PASSWORD SETUP  *************************//

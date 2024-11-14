@@ -60,3 +60,15 @@
     text-align: center;
     width: 100%;
 } 
+
+.password-wrapper {
+  position: relative;
+}
+.password-wrapper i {
+  position: absolute;
+  right: 20px;
+  top: 73%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #6c757d;
+}
