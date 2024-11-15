@@ -3,10 +3,10 @@ const passport = require('passport');
 const bcrypt = require('bcrypt');
 const User = require('../models/user')
 
-function init(passport) {
-  // Local Strategy for email and password login
+
+// Local Strategy for email and password login
 passport.use(new LocalStrategy({ usernameField: 'email' }, async (email, password, done) => {
-    
+
     try {
         // console.log("Checking user with email:", email);
 
@@ -33,19 +33,22 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, async (email, passwor
 
 // Serialize  user
 passport.serializeUser((user, done) => {
+    console.log("SerializeUser:", user);
     done(null, user.id);
 });
 
 
 // deserialize user
-passport.deserializeUser(async (id, done) => {
+passport.deserializeUser( async(id, done) => {
+    // console.log("DeserializeUser:", id);
+
     try {
-        const user = await User.findById(id);
+        const user = await User.findById(id).select('-createdAt -updatedAt -__v');
+        // console.log("DeserializeUser:", user);
         done(null, user);
     } catch (err) {
         done(err);
     }
 });
 
-}
-module.exports = init;
+module.exports = passport;
