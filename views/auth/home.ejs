@@ -26,22 +26,25 @@
   
   
           <div class="col-md-5 border border-danger p-5 rounded box">
+            <div>
+              <h2 class="mb-3 text-center">Welcome, <%= user.username %>!</h2>
+            </div>
+            <div class="d-flex align-items-center justify-content-center mb-4">
+              <img src="<%= user.image || '/images/avatar.png' %>" alt="User Profile Image"
+              draggable="false" style="width: 60px; height: 60px; border-radius: 50%; margin-right: 10px;">
+              <p class="lead mb-0"> <%= user.email %>.</p>
+          </div>
             <div class="msg justify-content-center">
               <p>Login Sucessful Ninja🤘</p>
               <span>
                 <img class="ninjaLogo ms-3" src="./images/codingNinjas.jpg" alt="" />
               </span>
             </div>
-            <form id="logout" action="/logout" method="POST">
+            <form action="/logout" method="POST">
               <div class="d-grid gap-2 col-8 mx-auto mt-4">
-                <a onclick="document.getElementById('logout').submit()" class="btn btn-primary  mb-4 " href="#"
-                style="text-decoration:none">LOG OUT</a>
-  
+                <button type="submit" class="btn btn-danger">Logout</button>
               </div>
-             
             </form>
-  
-      
           </div>
         </div>
       </div>

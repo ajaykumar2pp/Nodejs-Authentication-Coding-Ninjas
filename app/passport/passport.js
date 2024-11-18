@@ -37,7 +37,7 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, async (email, passwor
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "https://gkv-ac-in.onrender.com/auth/google/callback",
+    callbackURL: process.env.GOOGLE_CALLBACK_URL,
 },
     async (accessToken, refreshToken, profile, done) => {
         // console.log(profile)
@@ -62,7 +62,7 @@ passport.use(new GoogleStrategy({
 
 // Serialize  user
 passport.serializeUser((user, done) => {
-    console.log("SerializeUser:", user);
+    // console.log("SerializeUser:", user);
     done(null, user.id);
 });
 

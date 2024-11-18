@@ -52,6 +52,12 @@ app.use(express.urlencoded({ extended: true }))
 // ***********************************Routes ********************************//
 require('./routes/web')(app)
 
+//*****   404 Error Handling   *******/ 
+app.use((req, res) => {
+    res.status(404).render('errors/error', { title: 'Page Not Found' })
+})
+
+
 // ************************   Port Start   ********************************//
 const PORT = process.env.PORT || 8500;
 app.listen(PORT,()=>{

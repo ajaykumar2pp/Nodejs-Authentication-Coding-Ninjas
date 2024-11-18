@@ -42,7 +42,7 @@ function authController() {
         },
 
         home(req, resp) {
-            resp.render('auth/home')
+            resp.render('auth/home', { user: req.user })
         },
 
 
@@ -60,15 +60,7 @@ function authController() {
                 req.flash('email', email)
                 return resp.redirect('/')
             }
-            // Check if email exists 
-            User.exists({ email: email }, (err, result) => {
-                if (result) {
-                    req.flash('error', 'Email already taken')
-                    req.flash('username', username)
-                    req.flash('email', email)
-                    return resp.redirect('/')
-                }
-            })
+           
             try {
                 // Check if email exists
                 const emailExists = await User.exists({ email: email });
@@ -125,12 +117,13 @@ function authController() {
             });
         },
         // ************************************   LOGOUT   ********************************//
-        logout(req, resp, next) {
-            req.logout(function (err) {
+        logout(req, resp) {
+            req.logOut((err) =>{ 
                 if (err) {
-                    return next(err);
+                    console.error(err);
+                    return resp.redirect('/dashboard');
                 }
-                return resp.redirect('/')
+                return resp.redirect('/signin')
             });
 
         }
